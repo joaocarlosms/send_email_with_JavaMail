@@ -7,18 +7,23 @@ import org.junit.jupiter.api.Test;
  * Unit test for simple App.
  */
 public class AppTest {
-	String username = "jcjavaweb@gmail.com";
-	String password = "jlvg vikv almj gtzd";
 	
 	@Test
 	public void send_email() throws Exception {
+		StringBuilder stringBuilderTextEmail = new StringBuilder();
+		
+		stringBuilderTextEmail.append("Olá, <br/></br>");
+		stringBuilderTextEmail.append("Aqui está o seu código de confirmação para realizar o login:<br/></br>");
+		stringBuilderTextEmail.append("<b>123456</b><br/></br>");
+		stringBuilderTextEmail.append("<span style=\"font-size:8px\">Ass.: jc dev Java</span>");
+		
 		ObjectSendEmail send_email = new ObjectSendEmail(
 				"jcmedeiros04@gmail.com, jcjavaweb@gmail.com",
 				"jc-dev",
-				"E-mail received with success using Java!",
-				"You have a new message in your email!");
+				"Código de confirmação para login",
+				stringBuilderTextEmail.toString());
 		
-		send_email.sendEmail();
+		send_email.sendEmail(true);
 	}
 }
 

@@ -33,7 +33,7 @@ public class ObjectSendEmail {
 		this.textEmail = textEmail;
 	}
 
-	public void sendEmail() {
+	public void sendEmail(Boolean messageContentHtml) {
 		try {
 			Properties properties = new Properties();
 			properties.put("mail.smtp.ssl.trust", "*");
@@ -48,7 +48,7 @@ public class ObjectSendEmail {
 				@Override
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(username, password);
-				}
+				} 	
 			});
 			
 			Address[] toUser = InternetAddress.parse(listRecipients);
@@ -57,7 +57,12 @@ public class ObjectSendEmail {
 			message.setFrom(new InternetAddress(username, nameSender));
 			message.setRecipients(Message.RecipientType.TO, toUser);
 			message.setSubject(subjectEmail);
-			message.setText(textEmail);
+			
+			if(messageContentHtml) {
+				message.setContent(textEmail, "text/html; charset=UTF-8");
+			} else {
+				message.setText(textEmail);
+			}	
 			
 			Transport.send(message);
 			
