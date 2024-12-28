@@ -8,23 +8,34 @@ import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import org.junit.jupiter.api.Test;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest {
-	String username = "jcjavaweb@gmail.com";
-	String password = "jlvg vikv almj gtzd";
+public class ObjectSendEmail {
+	private String username = "jcjavaweb@gmail.com";
+	private String password = "jlvg vikv almj gtzd";
+	private String listRecipients;
+	private String nameSender;
+	private String subjectEmail;
+	private String textEmail;
 	
-	@Test
-	public void send_email() throws AddressException {
-		Properties properties = new Properties();
-		
+	public ObjectSendEmail() { 
+		this.listRecipients = "jcmedeiros04@gmail.com, jcjavaweb@gmail.com";
+		this.nameSender = "";
+		this.subjectEmail = "";
+		this.textEmail = "";
+	}
+	
+	public ObjectSendEmail(String listRecipients, String nameSender, String subjectEmail, String textEmail) {
+		this.listRecipients = listRecipients;
+		this.nameSender = nameSender;
+		this.subjectEmail = subjectEmail;
+		this.textEmail = textEmail;
+	}
+
+	public void sendEmail() {
 		try {
+			Properties properties = new Properties();
 			properties.put("mail.smtp.ssl.trust", "*");
 			properties.put("mail.smtp.auth", "true");
 			properties.put("mail.smtp.starttls", "true");
@@ -40,13 +51,13 @@ public class AppTest {
 				}
 			});
 			
-			Address[] toUser = InternetAddress.parse("jcmedeiros04@gmail.com, jcjavaweb@gmail.com");
+			Address[] toUser = InternetAddress.parse(listRecipients);
 			
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(username, "jc-dev"));
+			message.setFrom(new InternetAddress(username, nameSender));
 			message.setRecipients(Message.RecipientType.TO, toUser);
-			message.setSubject("E-mail enviado com sucesso!");
-			message.setText("HELLO WORLD!!! BIBLICAAAAAL!");
+			message.setSubject(subjectEmail);
+			message.setText(textEmail);
 			
 			Transport.send(message);
 			
@@ -55,22 +66,3 @@ public class AppTest {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
