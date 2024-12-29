@@ -13,7 +13,7 @@ public class AppTest {
 		StringBuilder stringBuilderTextEmail = new StringBuilder();
 		
 		stringBuilderTextEmail.append("Parabéns, <br/></br>");
-		stringBuilderTextEmail.append("Aqui está o seu certificado de conclusão do curso! <br/></br>");
+		stringBuilderTextEmail.append("Aqui está o seu certificado de conclusão do curso	! <br/></br>");
 		stringBuilderTextEmail.append("<span style=\"font-size:8px\">Ass.: jc dev Java</span>");
 		
 		ObjectSendEmail send_email = new ObjectSendEmail(
